@@ -26,7 +26,7 @@ export const fetchNewsAPI = async (query: string = "latest"): Promise<Article[]>
       q: query,
       apiKey: API_KEY,
       language: "en",
-      pageSize: 10,
+      pageSize: 20,
     },
   });
   return data.articles.map((article, index) => ({

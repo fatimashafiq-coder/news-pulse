@@ -21,10 +21,12 @@ const NewsAPIPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">📰 Latest News</h1>
+    <div className="min-h-screen p-8 ">
+      <h1 className="text-4xl font-bold text-center text-white mb-10">
+        📰 Latest News
+      </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
         {articles?.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}
@@ -32,5 +34,4 @@ const NewsAPIPage = () => {
     </div>
   );
 };
-
 export default NewsAPIPage;
