@@ -2,6 +2,8 @@ import { useQueries } from "@tanstack/react-query";
 import { fetchNewsAPI } from "../api/newsApi";
 import { fetchGuardianNews } from "../api/guardianApi";
 import ArticleCard from "../components/ArticleCard";
+import { type Article } from "../../../types/article";
+import { useMemo } from "react";
 
 const NewsAPIPage = () => {
   const results = useQueries({
@@ -30,6 +32,23 @@ const NewsAPIPage = () => {
   const isLoading = results.some((query) => query.isLoading);
   const hasError = results.some((query) => query.isError);
 
+  const getMixedArticles = (): Article[] => {
+    const newsAPIArticles = newsAPIQuery.data || [];
+    const guardianArticles = guardianQuery.data || [];
+
+    const allArticles = [...newsAPIArticles, ...guardianArticles];
+
+    const shuffledArticles = [...allArticles];
+    for (let i = shuffledArticles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArticles[i], shuffledArticles[j]] = [shuffledArticles[j], shuffledArticles[i]];
+    }
+
+    return shuffledArticles;
+  };
+
+  const mixedArticles = useMemo(() => getMixedArticles(), [newsAPIQuery.data, guardianQuery.data]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -54,40 +73,31 @@ const NewsAPIPage = () => {
     );
   }
 
-  const newsAPIArticles = newsAPIQuery.data || [];
-  const guardianArticles = guardianQuery.data || [];
+  const totalArticles = mixedArticles.length;
 
   return (
     <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold text-center text-white mb-10">
-        📰 Latest News from Multiple Sources
-      </h1>
-{/*  */}
-      {newsAPIArticles.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-cyan-400 mb-6">
-            NewsAPI ({newsAPIArticles.length} articles)
-          </h2>
-          <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {newsAPIArticles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </div>
-        </section>
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-white mb-4">
+          📰 Mixed News Feed
+        </h1>
+      </div>
+
+      {totalArticles > 0 ? (
+        <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          {mixedArticles.map((article) => (
+            <ArticleCard
+              key={`${article.source}-${article.id}`}
+              article={article}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-gray-400 text-xl mt-20">
+          No articles found from any source.
+        </div>
       )}
 
-      {guardianArticles.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-semibold text-cyan-400 mb-6">
-            The Guardian ({guardianArticles.length} articles)
-          </h2>
-          <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {guardianArticles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
 };
