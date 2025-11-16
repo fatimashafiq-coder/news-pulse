@@ -6,7 +6,7 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
-        <div className=" rounded-lg p-6 border-2 border-cyan-500 hover:border-cyan-400 transition-all">
+        <div className=" rounded-lg p-6 pt-2 border-2 border-cyan-500 hover:border-cyan-400 transition-all">
             <div className=" w-10 h-10 rounded-full overflow-hidden border-4 border-cyan-500">
                 <img
                     src={article.imageUrl || "https://via.placeholder.com/150"}
