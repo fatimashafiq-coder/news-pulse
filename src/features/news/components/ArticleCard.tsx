@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { type Article } from "../../../types/article";
 
 interface ArticleCardProps {
@@ -6,12 +7,12 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
-        <div className=" rounded-lg p-6 pt-2 border-2 border-cyan-500 hover:border-cyan-400 transition-all">
-            <div className=" w-10 h-10 rounded-full overflow-hidden border-4 border-cyan-500">
+        <div className="rounded-lg p-6 pt-2 border-2 border-cyan-500 hover:border-cyan-400 transition-all">
+            <div className="w-10 h-10 rounded-full overflow-hidden border-4 border-cyan-500">
                 <img
                     src={article.imageUrl || "https://via.placeholder.com/150"}
                     alt={article.title}
-                    className="w-full h-full object-cover block"
+                    className="w-[350px] border-4 md:mx-0 mx-auto"
                     onError={(e) => {
                         e.currentTarget.src = "https://via.placeholder.com/150";
                     }}
@@ -22,14 +23,14 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </h3>
 
             <div className="flex justify-center">
-                <a
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-2 rounded font-medium transition-colors"
+                <Link
+                    to={`/article/${article.id}`}
+                    state={{ article }}
+
                 >
-                    View
-                </a>
+                    <button
+                    > View Details</button>
+                </Link>
             </div>
         </div>
     );
