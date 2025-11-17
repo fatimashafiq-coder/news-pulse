@@ -26,15 +26,12 @@ const SearchInput = ({ onSearch }: Props) => {
       <input
         type="text"
         placeholder="Search news..."
-        className="px-4 py-3 rounded w-80 outline-none"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyPress={handleKeyPress}
       />
       <button
-        onClick={handleSearch}
-        className="bg-blue-500 text-white font-semibold px-6 py-3 rounded hover:bg-blue-600 transition"
-      >
+        onClick={handleSearch}>
         Search
       </button>
     </div>

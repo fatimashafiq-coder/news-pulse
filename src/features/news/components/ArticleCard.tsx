@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { type Article } from "../../../types/article";
+import { FiCalendar } from "react-icons/fi";
 
 interface ArticleCardProps {
     article: Article;
@@ -7,26 +8,26 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
-        <div className="rounded-lg p-6 pt-2 border-2 border-cyan-500 hover:border-cyan-400 transition-all">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-4 border-cyan-500">
+        <div>
+            <div className="rounded-full overflow-hidden  border-4 border-cyan-500">
                 <img
-                    src={article.imageUrl || "https://via.placeholder.com/150"}
+                    src={article.imageUrl}
                     alt={article.title}
-                    className="w-[350px] border-4 md:mx-0 mx-auto"
-                    onError={(e) => {
-                        e.currentTarget.src = "https://via.placeholder.com/150";
-                    }}
+                    className="w-[350px] md:mx-0 mx-auto"
                 />
             </div>
             <h3 className="text-center text-white font-medium text-base mb-3">
                 {article.title}
             </h3>
+               <p className="mb-2">
+                    <FiCalendar />
+                    <strong>Date:</strong> {new Date(article.publishedAt).toLocaleString()}
+                  </p>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center " >
                 <Link
                     to={`/article/${article.id}`}
                     state={{ article }}
-
                 >
                     <button
                     > View Details</button>

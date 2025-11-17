@@ -3,7 +3,7 @@ import { fetchNewsAPI } from "../api/newsApi";
 import { fetchGuardianNews } from "../api/guardianApi";
 import { useMemo } from "react";
 
-export const useMixedNews = (query: string = "bitcoin") => {
+export const useMixedNews = (query: string = "politician") => {
   const results = useQueries({
     queries: [
       {
@@ -33,6 +33,8 @@ export const useMixedNews = (query: string = "bitcoin") => {
   const mixedArticles = useMemo(() => {
     const newsAPIArticles = newsAPIQuery.data || [];
     const guardianArticles = guardianQuery.data || [];
+    console.log("guardianArticles", JSON.stringify(guardianArticles, null,2));
+     console.log("newsAPIArticles", JSON.stringify(newsAPIArticles, null,2));
 
     const allArticles = [...newsAPIArticles, ...guardianArticles];
 

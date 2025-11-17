@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMixedNews } from "../hooks/useMixedNews";
+import {type Article } from "../../../types/article";
 import ArticleCard from "../components/ArticleCard";
 import SearchInput from "../../../components/Input";
+import DateFilterDropdown from "../../../components/DateFilterDropdown";
 
 const NewsAPIPage = () => {
-  const [searchQuery, setSearchQuery] = useState("bitcoin");
+  const [searchQuery, setSearchQuery] = useState("politician");
+  const [displayArticles, setDisplayArticles] = useState<Article[]>([]);
   const { mixedArticles, isLoading, hasError } = useMixedNews(searchQuery);
+
+  useEffect(() => {
+    setDisplayArticles(mixedArticles);
+  }, [mixedArticles]);
+
+  const handleFilter = (filtered: Article[]) => {
+    setDisplayArticles(filtered);
+  };
 
   return (
     <div>
@@ -14,12 +25,17 @@ const NewsAPIPage = () => {
         <SearchInput onSearch={setSearchQuery} />
       </div>
 
+      <DateFilterDropdown 
+        articles={mixedArticles} 
+        onFilter={handleFilter} 
+      />
+
       {isLoading && <p className="text-white">Loading...</p>}
       {hasError && <p className="text-white">Error loading news</p>}
 
-      <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-        {mixedArticles.length > 0 ? (
-          mixedArticles.map((article) => (
+      <div className="grid grid-cols-4">
+        {displayArticles.length > 0 ? (
+          displayArticles.map((article) => (
             <ArticleCard
               key={`${article.source}-${article.id}`}
               article={article}
