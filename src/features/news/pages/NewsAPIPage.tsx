@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useMixedNews } from "../hooks/useMixedNews";
-import {type Article } from "../../../types/article";
+import { type Article } from "../../../types/article";
 import ArticleCard from "../components/ArticleCard";
 import SearchInput from "../../../components/Input";
 import DateFilterDropdown from "../../../components/DateFilterDropdown";
+import SourceFilterDropdown from "../../../components/SourceFilterDropdown";
 
 const NewsAPIPage = () => {
   const [searchQuery, setSearchQuery] = useState("politician");
@@ -25,11 +26,15 @@ const NewsAPIPage = () => {
         <SearchInput onSearch={setSearchQuery} />
       </div>
 
-      <DateFilterDropdown 
-        articles={mixedArticles} 
-        onFilter={handleFilter} 
+      <DateFilterDropdown
+        articles={mixedArticles}
+        onFilter={handleFilter}
       />
 
+      <SourceFilterDropdown
+        articles={mixedArticles}
+        onFilter={handleFilter}
+      />
       {isLoading && <p className="text-white">Loading...</p>}
       {hasError && <p className="text-white">Error loading news</p>}
 

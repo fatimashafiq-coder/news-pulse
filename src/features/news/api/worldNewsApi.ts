@@ -23,6 +23,7 @@ export const fetchNewsDataAPI = async (
     throw new Error("NewsData API key missing");
   }
 
+  try {
     const { data } = await axios.get<NewsDataResponse>(
       `${BASE_URL}/news`,
       {
@@ -35,6 +36,10 @@ export const fetchNewsDataAPI = async (
       }
     );
 
+    if (!data.results) {
+      return [];
+    }
+
     return data.results.map((article, index) => ({
       id: `newsdata-${index}-${Date.now()}`,
       title: article.title,
@@ -46,5 +51,8 @@ export const fetchNewsDataAPI = async (
       publishedAt: article.pubDate,
       author: article.creator?.[0] || undefined,
     }));
-  
+  } catch (error) {
+    console.error("NewsData API Error:", error);
+    throw error;
+  }
 };

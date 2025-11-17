@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
 import { fetchNewsAPI } from "../api/newsApi";
 import { fetchGuardianNews } from "../api/guardianApi";
-import {fetchNewsDataAPI } from "../api/worldNewsApi";           
+import { fetchNewsDataAPI } from "../api/worldNewsApi";           
 import { useMemo } from "react";
 
 export const useMixedNews = (query: string = "politician") => {
@@ -44,15 +44,15 @@ export const useMixedNews = (query: string = "politician") => {
     const guardianArticles = guardianQuery.data ?? [];
     const newsDataArticles = newsDataQuery.data ?? [];
 
-    const all = [...newsAPIArticles, ...guardianArticles, ...newsDataArticles];
+    const allArticles = [...newsAPIArticles, ...guardianArticles, ...newsDataArticles];
 
-    for (let i = all.length - 1; i > 0; i--) {
+    for (let i = allArticles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [all[i], all[j]] = [all[j], all[i]];
+      [allArticles[i], allArticles[j]] = [allArticles[j], allArticles[i]];
     }
 
-    console.log("Total Articles:", all.length);
-    return all;
+    console.log("Total Articles:", allArticles.length);
+    return allArticles;
   }, [newsAPIQuery.data, guardianQuery.data, newsDataQuery.data]);
 
   return { mixedArticles, isLoading, hasError };
