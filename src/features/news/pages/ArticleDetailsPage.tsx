@@ -22,7 +22,7 @@ const ArticleDetailsPage = () => {
   return (
     <div>
       <img
-        src={article.imageUrl || "https://via.placeholder.com/400"}
+        src={article.imageUrl}
         alt={article.title}
         className="w-[300px] border-4 md:mx-0 mx-auto"
       />

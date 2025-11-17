@@ -50,8 +50,6 @@ export const useMixedNews = (query: string = "politician") => {
       const j = Math.floor(Math.random() * (i + 1));
       [allArticles[i], allArticles[j]] = [allArticles[j], allArticles[i]];
     }
-
-    console.log("Total Articles:", allArticles.length);
     return allArticles;
   }, [newsAPIQuery.data, guardianQuery.data, newsDataQuery.data]);
 

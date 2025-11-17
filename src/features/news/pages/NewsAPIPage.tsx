@@ -5,6 +5,7 @@ import ArticleCard from "../components/ArticleCard";
 import SearchInput from "../../../components/Input";
 import DateFilterDropdown from "../../../components/DateFilterDropdown";
 import SourceFilterDropdown from "../../../components/SourceFilterDropdown";
+import AuthorFilterDropdown from "../../../components/AuthorFilterDropdown";
 
 const NewsAPIPage = () => {
   const [searchQuery, setSearchQuery] = useState("politician");
@@ -35,6 +36,10 @@ const NewsAPIPage = () => {
         articles={mixedArticles}
         onFilter={handleFilter}
       />
+         <AuthorFilterDropdown 
+          articles={mixedArticles} 
+          onFilter={handleFilter} 
+        />
       {isLoading && <p className="text-white">Loading...</p>}
       {hasError && <p className="text-white">Error loading news</p>}
 
