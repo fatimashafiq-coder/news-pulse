@@ -34,9 +34,9 @@ export const fetchGuardianNews = async (query: string = "latest"): Promise<Artic
       "show-fields": "thumbnail,trailText,byline",
     },
   });
-
+  console.log("guardian api", data);
   return data.response.results.map((article) => ({
-   id: uuidv4(),
+    id: uuidv4(),
     title: article.webTitle,
     description: article.fields?.trailText || "",
     url: article.webUrl,

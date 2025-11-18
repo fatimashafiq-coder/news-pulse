@@ -6,7 +6,7 @@ interface AuthorFilterDropdownProps {
   onFilter: (filtered: Article[]) => void;
 }
 
-const AuthorFilterDropdown = ({ articles, onFilter }: AuthorFilterDropdownProps) => {
+const AuthorFilterDropdown = ({ articles, onFilter }: AuthorFilterDropdownProps)=>{
   const [selectedAuthor, setSelectedAuthor] = useState<string>("All");
 
   const authors = useMemo(() => {
@@ -32,7 +32,7 @@ const AuthorFilterDropdown = ({ articles, onFilter }: AuthorFilterDropdownProps)
   };
 
   return (
-    <div className="w-full md:w-48">
+    <div>
       <select
        className="border"
         value={selectedAuthor}

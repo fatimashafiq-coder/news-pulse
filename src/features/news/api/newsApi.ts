@@ -29,6 +29,7 @@ export const fetchNewsAPI = async (query: string = "latest"): Promise<Article[]>
       language: "en",
     },
   });
+console.log("newApi",data);
   return data.articles.map((article) => ({
     id: uuidv4(),
     title: article.title,

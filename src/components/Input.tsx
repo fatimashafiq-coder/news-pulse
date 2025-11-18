@@ -24,7 +24,18 @@ const SearchInput = ({ onSearch }: Props) => {
   return (
     <div className="flex gap-2">
       <input
-       className="border rounded-2xl"
+     className="
+    w-72
+    px-5 py-3
+    rounded-2xl
+    border border-gray-400
+    shadow-sm
+    focus:outline-none
+    focus:ring-2 focus:ring-black focus:border-black
+    text-sm
+    transition-all duration-200
+    placeholder:text-gray-400
+  "
         type="text"
         placeholder="Search news..."
         value={inputValue}
@@ -32,7 +43,7 @@ const SearchInput = ({ onSearch }: Props) => {
         onKeyPress={handleKeyPress}
       />
       <button
-       className="border"
+       className="px-4 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-colors duration-200 text-base tracking-wide"
         onClick={handleSearch}>
         Search
       </button>

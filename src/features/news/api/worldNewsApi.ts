@@ -33,6 +33,7 @@ export const fetchNewsDataAPI = async (
           apikey: API_KEY,
           country: "us",
           language: "en",
+           size: 50,
         },
       }
     );
@@ -40,6 +41,8 @@ export const fetchNewsDataAPI = async (
     if (!data.results) {
       return [];
     }
+
+    console.log(data);
 
     return data.results.map((article) => ({
       id: uuidv4(),
