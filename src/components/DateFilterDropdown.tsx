@@ -30,19 +30,22 @@ const DateFilterDropdown = ({ articles, onFilter }: DateFilterDropdownProps) => 
   return (
     <div className="flex gap-4 items-center mb-6 flex-wrap">
       <input
+       className="border"
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
 
       />
-      <p className="text-white font-medium">to</p>
+      <p className=" font-medium">to</p>
       <input
+       className="border"
         type="date"
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
       
       />
       <button
+       className="border"
         onClick={handleFilter}
       >
         Filter

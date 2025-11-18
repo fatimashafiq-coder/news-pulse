@@ -34,6 +34,7 @@ const AuthorFilterDropdown = ({ articles, onFilter }: AuthorFilterDropdownProps)
   return (
     <div className="w-full md:w-48">
       <select
+       className="border"
         value={selectedAuthor}
         onChange={handleAuthorChange}
       >

@@ -21,41 +21,47 @@ const NewsAPIPage = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-4xl font-bold text-white">📰 Mixed News Feed</h1>
-        <SearchInput onSearch={setSearchQuery} />
-      </div>
+     <div className="min-h-screen bg-gray-50 px-12 py-12 ">
+      <div className="mx-auto">
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-4xl font-bold text-black">📰 Mixed News Feed</h1>
+          <SearchInput onSearch={setSearchQuery} />
+        </div>
 
-      <DateFilterDropdown
-        articles={mixedArticles}
-        onFilter={handleFilter}
-      />
+        <div className="mb-8 space-y-4 flex gap-3 ">
+          <DateFilterDropdown
+            articles={mixedArticles}
+            onFilter={handleFilter}
+          />
 
-      <SourceFilterDropdown
-        articles={mixedArticles}
-        onFilter={handleFilter}
-      />
-         <AuthorFilterDropdown 
-          articles={mixedArticles} 
-          onFilter={handleFilter} 
-        />
-      {isLoading && <p className="text-white">Loading...</p>}
-      {hasError && <p className="text-white">Error loading news</p>}
+          <SourceFilterDropdown
+            articles={mixedArticles}
+            onFilter={handleFilter}
+          />
 
-      <div className="grid grid-cols-4">
-        {displayArticles.length > 0 ? (
-          displayArticles.map((article) => (
-            <ArticleCard
-              key={`${article.source}-${article.id}`}
-              article={article}
-            />
-          ))
-        ) : (
-          <p className="text-white col-span-full text-center">
-            No articles found
-          </p>
-        )}
+          <AuthorFilterDropdown 
+            articles={mixedArticles} 
+            onFilter={handleFilter} 
+          />
+        </div>
+
+        {isLoading && <p className="text-center text-gray-600 py-8">Loading...</p>}
+        {hasError && <p className="text-center text-red-600 py-8">Error loading news</p>}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-16 ">
+          {displayArticles.length > 0 ? (
+            displayArticles.map((article) => (
+              <ArticleCard
+                key={`${article.source}-${article.id}`}
+                article={article}
+              />
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-600 py-12">
+              No articles found
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

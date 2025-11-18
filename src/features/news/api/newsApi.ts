@@ -1,5 +1,6 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
+import { v4 as uuidv4 } from "uuid";
 
 const API_KEY = import.meta.env.VITE_NEWSAPI_KEY;
 const BASE_URL = "https://newsapi.org/v2";
@@ -26,11 +27,10 @@ export const fetchNewsAPI = async (query: string = "latest"): Promise<Article[]>
       q: query,
       apiKey: API_KEY,
       language: "en",
-      pageSize: 20,
     },
   });
-  return data.articles.map((article, index) => ({
-    id: `newsapi-${index}-${Date.now()}`,
+  return data.articles.map((article) => ({
+    id: uuidv4(),
     title: article.title,
     description: article.description || "",
     url: article.url,

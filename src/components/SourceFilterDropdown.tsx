@@ -7,8 +7,8 @@ interface SourceFilterDropdownProps {
 }
 
 type SourceType = "All" | "NewsAPI" | "Guardian" | "NewsData";
-
 const SOURCES: SourceType[] = ["All", "NewsAPI", "Guardian", "NewsData"];
+
 const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps) => {
   const [selectedSource, setSelectedSource] = useState<SourceType>("All");
 
@@ -27,6 +27,7 @@ const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps)
   return (
     <div className="w-full md:w-48">
       <select
+      className="border"
         value={selectedSource}
         onChange={handleSourceChange}
       >

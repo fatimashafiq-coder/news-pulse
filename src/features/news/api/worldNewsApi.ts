@@ -1,5 +1,6 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
+import { v4 as uuidv4 } from "uuid";
 
 const API_KEY = "pub_43018a20d2c24c31b78a65bf580d7ef2";
 const BASE_URL = "https://newsdata.io/api/1";
@@ -40,8 +41,8 @@ export const fetchNewsDataAPI = async (
       return [];
     }
 
-    return data.results.map((article, index) => ({
-      id: `newsdata-${index}-${Date.now()}`,
+    return data.results.map((article) => ({
+      id: uuidv4(),
       title: article.title,
       description: article.description || "",
       url: article.link,

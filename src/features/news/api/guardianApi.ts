@@ -1,5 +1,6 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
+import { v4 as uuidv4 } from "uuid";
 
 const API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
 const BASE_URL = "https://content.guardianapis.com";
@@ -31,12 +32,11 @@ export const fetchGuardianNews = async (query: string = "latest"): Promise<Artic
       q: query,
       "api-key": API_KEY,
       "show-fields": "thumbnail,trailText,byline",
-      "page-size": 20,
     },
   });
 
-  return data.response.results.map((article, index) => ({
-    id: `guardian-${index}-${Date.now()}`,
+  return data.response.results.map((article) => ({
+   id: uuidv4(),
     title: article.webTitle,
     description: article.fields?.trailText || "",
     url: article.webUrl,

@@ -8,29 +8,34 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
-        <div>
-            <div className="rounded-full overflow-hidden  border-4 border-cyan-500">
+        <div className="bg-white  overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="relative w-full h-48 overflow-hidden">
                 <img
                     src={article.imageUrl}
                     alt={article.title}
-                    className="w-[350px] md:mx-0 mx-auto"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
             </div>
-            <h3 className="text-center text-white font-medium text-base mb-3">
-                {article.title}
-            </h3>
-               <p className="mb-2">
-                    <FiCalendar />
-                    <strong>Date:</strong> {new Date(article.publishedAt).toLocaleString()}
-                  </p>
 
-            <div className="flex justify-center " >
+            <div className="p-4">
+    
+                <h3 className="text-black font-bold text-base mb-3 line-clamp-2 hover:text-gray-700">
+                    {article.title}
+                </h3>
+
+                <p className="text-gray-600 text-xs flex items-center gap-2 mb-4">
+                    <FiCalendar className="text-gray-500" />
+                    <strong>Date:</strong> {new Date(article.publishedAt).toLocaleString()}
+                </p>
+
                 <Link
+                className="pr-3"
                     to={`/article/${article.id}`}
                     state={{ article }}
                 >
-                    <button
-                    > View Details</button>
+                    <button className=" px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-colors duration-200 text-base tracking-wide">
+                        View
+                    </button>
                 </Link>
             </div>
         </div>

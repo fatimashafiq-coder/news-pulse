@@ -24,6 +24,7 @@ const SearchInput = ({ onSearch }: Props) => {
   return (
     <div className="flex gap-2">
       <input
+       className="border rounded-2xl"
         type="text"
         placeholder="Search news..."
         value={inputValue}
@@ -31,6 +32,7 @@ const SearchInput = ({ onSearch }: Props) => {
         onKeyPress={handleKeyPress}
       />
       <button
+       className="border"
         onClick={handleSearch}>
         Search
       </button>
