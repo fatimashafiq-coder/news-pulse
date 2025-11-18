@@ -4,36 +4,23 @@ import { fetchGuardianNews } from "../api/guardianApi";
 import { fetchNewsDataAPI } from "../api/worldNewsApi";           
 import { useMemo } from "react";
 
-export const useMixedNews = (query: string = "politician") => {
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ["newsapi", query],
-        queryFn: () => fetchNewsAPI(query),
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 10,
-        refetchOnWindowFocus: false,
-        retry: 2,
-      },
-      {
-        queryKey: ["guardian", query],
-        queryFn: () => fetchGuardianNews(query),
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 10,
-        refetchOnWindowFocus: false,
-        retry: 2,
-      },
-      {
-        queryKey: ["newsdata", query],
-        queryFn: () => fetchNewsDataAPI(query),
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 10,
-        refetchOnWindowFocus: false,
-        retry: 2,
-      },
-    ],
-  });
+const sources = [
+  { key: "newsapi", fn: fetchNewsAPI },
+  { key: "guardian", fn: fetchGuardianNews },
+  { key: "newsdata", fn: fetchNewsDataAPI },
+];
 
+export const useMixedNews = (query: string = "politician") => {
+    const results = useQueries({
+    queries: sources.map(({ key, fn }) => ({
+      queryKey: [key, query],
+      queryFn: () => fn(query),
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 10,
+      refetchOnWindowFocus: false,
+      retry: 2,
+    })),
+  });
   const [newsAPIQuery, guardianQuery, newsDataQuery] = results;
 
   const isLoading = results.some((q) => q.isLoading);
