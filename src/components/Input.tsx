@@ -24,7 +24,7 @@ const SearchInput = ({ onSearch }: Props) => {
   return (
     <div className="flex gap-2">
       <input
-     className="
+        className="
     w-72
     px-5 py-3
     rounded-2xl
@@ -43,7 +43,7 @@ const SearchInput = ({ onSearch }: Props) => {
         onKeyPress={handleKeyPress}
       />
       <button
-       className="px-4 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-colors duration-200 text-base tracking-wide"
+        className="px-4 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-colors duration-200 text-base tracking-wide"
         onClick={handleSearch}>
         Search
       </button>
