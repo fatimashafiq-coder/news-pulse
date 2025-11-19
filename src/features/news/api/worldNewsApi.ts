@@ -43,8 +43,6 @@ export const fetchNewsDataAPI = async (
     if (!data.results) {
       return [];
     }
-    console.log(data);
-
     return data.results.map((article) => ({
       id: uuidv4(),
       title: article.title,

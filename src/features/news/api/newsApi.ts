@@ -20,7 +20,6 @@ interface NewsAPIResponse {
 
 export const fetchNewsAPI = async (
   query: string = "latest",
-  apiKey: string = API_KEY,
   language: string = "en",
 ): Promise<Article[]> => {
   if (!API_KEY) {
@@ -30,7 +29,7 @@ export const fetchNewsAPI = async (
   const { data } = await axios.get<NewsAPIResponse>(`${BASE_URL}/everything`, {
     params: {
       q: query,
-      "api-key": apiKey,
+      apiKey :API_KEY,
       "language": language,
     },
   });
