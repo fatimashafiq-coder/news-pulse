@@ -1,6 +1,6 @@
 import { type Article } from "../types/article";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { validationSchema } from "../schema/validationSchema";
 
 interface DateFilterDropdownProps {
   articles: Article[];
@@ -14,16 +14,7 @@ const DateFilterDropdown = ({ articles, onFilter }: DateFilterDropdownProps) => 
   };
 
   const today = new Date().toISOString().split("T")[0];
-
-  const validationSchema = Yup.object({
-    startDate: Yup.date()
-      .required("Start date is required")
-      .max(Yup.ref("endDate"), "Start date cannot be after end date"),
-    endDate: Yup.date()
-      .required("End date is required")
-      .min(Yup.ref("startDate"), "End date cannot be before start date")
-      .max(today, "End date cannot be in the future"),
-  });
+  const dateValidationSchema = validationSchema(today);
 
   const handleSubmit = (values: typeof initialValues) => {
     const start = new Date(values.startDate);
@@ -42,7 +33,7 @@ const DateFilterDropdown = ({ articles, onFilter }: DateFilterDropdownProps) => 
     <div className="flex gap-4 items-center mb-6 flex-wrap">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={dateValidationSchema}
         onSubmit={handleSubmit}
       >
         {() => (
