@@ -54,7 +54,6 @@ const DateFilterDropdown = ({ articles, onFilter }: DateFilterDropdownProps) => 
               />
               <ErrorMessage name="endDate" component="div" className="text-red-500 text-sm" />
             </div>
-
             <button type="submit" className="border px-3 py-1 bg-blue-500 text-white rounded">
               Filter
             </button>

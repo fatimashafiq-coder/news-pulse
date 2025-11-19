@@ -1,22 +1,28 @@
 import { useState } from "react";
-import {type Article } from "../types/article";
+import { type Article } from "../types/article";
 
 interface SourceFilterDropdownProps {
   articles: Article[];
   onFilter: (filtered: Article[]) => void;
 }
 
-type SourceType = "All Source" | "NewsAPI" | "Guardian" | "NewsData";
-const SOURCES: SourceType[] = ["All Source", "NewsAPI", "Guardian", "NewsData"];
+const FilterSource = {
+  ALL: "All Source",
+  NEWS_API: "NewsAPI",
+  GUARDIAN: "Guardian",
+  NEWS_DATA: "NewsData"
+} as const;
+
+const SOURCES = Object.values(FilterSource);
 
 const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps) => {
-  const [selectedSource, setSelectedSource] = useState<SourceType>("All Source");
+  const [selectedSource, setSelectedSource] = useState<string>(FilterSource.ALL);
 
   const handleSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const source = e.target.value as SourceType;
+    const source = e.target.value;
     setSelectedSource(source);
 
-    if (source === "All Source") {
+    if (source === FilterSource.ALL) {
       onFilter(articles);
     } else {
       const filtered = articles.filter((article) => article.source === source);
@@ -27,7 +33,7 @@ const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps)
   return (
     <div className="w-full md:w-48">
       <select
-      className="border"
+        className="border"
         value={selectedSource}
         onChange={handleSourceChange}
       >
