@@ -19,7 +19,10 @@ interface NewsDataResponse {
 }
 
 export const fetchNewsDataAPI = async (
-  query: string = "world"
+  query: string = "world",
+  apiKey: string = API_KEY,
+   country: string = "us",
+    language: string = "en",
 ): Promise<Article[]> => {
   if (!API_KEY) {
     throw new Error("NewsData API key missing");
@@ -31,10 +34,9 @@ export const fetchNewsDataAPI = async (
       {
         params: {
           q: query,
-          apikey: API_KEY,
-          country: "us",
-          language: "en",
-           size: 50,
+          "apikey": apiKey,
+         " country": country,
+          "language": language,
         },
       }
     );
@@ -50,7 +52,7 @@ export const fetchNewsDataAPI = async (
       description: article.description || "",
       url: article.link,
       imageUrl: article.image_url,
-      source: ArticleSource. NEWS_DATA,
+      source: ArticleSource.NEWS_DATA,
       sourceName: article.source_id,
       publishedAt: article.pubDate,
       author: article.creator?.[0] || undefined,

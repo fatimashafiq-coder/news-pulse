@@ -32,9 +32,9 @@ const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps)
         value={selectedSource}
         onChange={handleSourceChange}
       >
-        {SOURCES.map((s) => (
-          <option key={s} value={s}>
-            {s}
+        {SOURCES.map((e) => (
+          <option key={e} value={e}>
+            {e}
           </option>
         ))}
       </select>

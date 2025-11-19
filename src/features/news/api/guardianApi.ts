@@ -23,16 +23,20 @@ interface GuardianResponse {
   };
 }
 
-export const fetchGuardianNews = async (query: string = "latest"): Promise<Article[]> => {
-  if (!API_KEY) {
+export const fetchGuardianNews = async (
+  query: string = "latest",
+  apiKey: string = API_KEY,
+  showFields: string = "thumbnail,trailText,byline"
+): Promise<Article[]> => {
+  if (!apiKey) {
     throw new Error("Guardian API key missing");
   }
 
   const { data } = await axios.get<GuardianResponse>(`${BASE_URL}/search`, {
     params: {
       q: query,
-      "api-key": API_KEY,
-      "show-fields": "thumbnail,trailText,byline",
+      "api-key": apiKey,
+      "show-fields": showFields,
     },
   });
   console.log("guardian api", data);
