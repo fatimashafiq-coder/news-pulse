@@ -14,7 +14,7 @@ const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) 
   };
 
   return (
-    <div>
+    <>
       <select
         className="border px-4 py-2 rounded"
         value={selectedAuthor}
@@ -27,7 +27,7 @@ const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) 
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 };
 
