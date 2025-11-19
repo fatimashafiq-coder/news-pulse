@@ -1,46 +1,29 @@
-import { useState, useMemo } from "react";
-import {type Article } from "../types/article";
+import { useState } from "react";
 
 interface AuthorFilterDropdownProps {
-  articles: Article[];
-  onFilter: (filtered: Article[]) => void;
+  authors: string[];
+  onFilter: (author: string) => void;
 }
 
-const AuthorFilterDropdown = ({ articles, onFilter }: AuthorFilterDropdownProps)=>{
+const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) => {
   const [selectedAuthor, setSelectedAuthor] = useState<string>("All");
-
-  const authors = useMemo(() => {
-    const authorSet = new Set<string>();
-    articles.forEach((article) => {
-      if (article.author && article.author.trim()) {
-        authorSet.add(article.author);
-      }
-    });
-    return ["All", ...Array.from(authorSet).sort()];
-  }, [articles]);
-
   const handleAuthorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const author = e.target.value;
     setSelectedAuthor(author);
-
-    if (author === "All") {
-      onFilter(articles);
-    } else {
-      const filtered = articles.filter((article) => article.author === author);
-      onFilter(filtered);
-    }
+    onFilter(author);
   };
 
   return (
     <div>
       <select
-       className="border"
+        className="border px-4 py-2 rounded"
         value={selectedAuthor}
         onChange={handleAuthorChange}
       >
+        <option value="All">All Authors</option>
         {authors.map((author) => (
           <option key={author} value={author}>
-            {author === "All" ? "All Authors" : author}
+            {author}
           </option>
         ))}
       </select>
