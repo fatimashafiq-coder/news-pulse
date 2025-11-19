@@ -1,6 +1,7 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
 import { v4 as uuidv4 } from "uuid";
+import { ArticleSource } from "../../../types/article";
 
 const API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
 const BASE_URL = "https://content.guardianapis.com";
@@ -41,7 +42,7 @@ export const fetchGuardianNews = async (query: string = "latest"): Promise<Artic
     description: article.fields?.trailText || "",
     url: article.webUrl,
     imageUrl: article.fields?.thumbnail,
-    source: "Guardian",
+    source: ArticleSource.GUARDIAN,
     sourceName: "The Guardian",
     publishedAt: article.webPublicationDate,
     author: article.fields?.byline,

@@ -16,7 +16,7 @@ const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) 
   return (
     <>
       <select
-        className="border px-4 py-2 rounded"
+        className="border rounded m-2.5 mb-2"
         value={selectedAuthor}
         onChange={handleAuthorChange}
       >

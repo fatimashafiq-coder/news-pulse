@@ -1,6 +1,7 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
 import { v4 as uuidv4 } from "uuid";
+import { ArticleSource } from "../../../types/article";
 
 const API_KEY = "pub_43018a20d2c24c31b78a65bf580d7ef2";
 const BASE_URL = "https://newsdata.io/api/1";
@@ -41,7 +42,6 @@ export const fetchNewsDataAPI = async (
     if (!data.results) {
       return [];
     }
-
     console.log(data);
 
     return data.results.map((article) => ({
@@ -50,7 +50,7 @@ export const fetchNewsDataAPI = async (
       description: article.description || "",
       url: article.link,
       imageUrl: article.image_url,
-      source: "NewsData",
+      source: ArticleSource. NEWS_DATA,
       sourceName: article.source_id,
       publishedAt: article.pubDate,
       author: article.creator?.[0] || undefined,

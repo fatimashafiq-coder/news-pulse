@@ -1,6 +1,7 @@
 import axios from "axios";
 import { type Article } from "../../../types/article";
 import { v4 as uuidv4 } from "uuid";
+import { ArticleSource } from "../../../types/article";
 
 const API_KEY = import.meta.env.VITE_NEWSAPI_KEY;
 const BASE_URL = "https://newsapi.org/v2";
@@ -36,7 +37,7 @@ console.log("newApi",data);
     description: article.description || "",
     url: article.url,
     imageUrl: article.urlToImage,
-    source: "NewsAPI",
+    source: ArticleSource.NEWS_API,
     sourceName: article.source.name,
     publishedAt: article.publishedAt,
     author: article.author,

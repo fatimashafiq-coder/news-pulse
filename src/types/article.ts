@@ -1,10 +1,8 @@
-export const ArticleSource = {
-  NEWS_API: "NewsAPI",
-  GUARDIAN: "Guardian",
-  NEWS_DATA: "NewsData"
-} as const;
-
-export type ArticleSourceType = typeof ArticleSource[keyof typeof ArticleSource];
+export enum ArticleSource {
+  NEWS_API= "NewsAPI",
+  GUARDIAN= "Guardian",
+  NEWS_DATA= "NewsData"
+} 
 
 export interface Article {
   id: string;
@@ -12,7 +10,7 @@ export interface Article {
   description: string;
   url: string;
   imageUrl?: string;
-  source: string;
+  source: ArticleSource;
   sourceName: string;
   publishedAt: string;
   author?: string;

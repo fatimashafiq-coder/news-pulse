@@ -1,31 +1,26 @@
 import { useState } from "react";
-import { type Article } from "../types/article";
+import { ArticleSource, type Article } from "../types/article";
 
 interface SourceFilterDropdownProps {
   articles: Article[];
   onFilter: (filtered: Article[]) => void;
 }
 
-const FilterSource = {
-  ALL: "All Source",
-  NEWS_API: "NewsAPI",
-  GUARDIAN: "Guardian",
-  NEWS_DATA: "NewsData"
-} as const;
-
-const SOURCES = Object.values(FilterSource);
+const SOURCES = ["All", ...Object.values(ArticleSource)];
 
 const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps) => {
-  const [selectedSource, setSelectedSource] = useState<string>(FilterSource.ALL);
+  const [selectedSource, setSelectedSource] = useState<string>("All");
 
   const handleSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const source = e.target.value;
     setSelectedSource(source);
 
-    if (source === FilterSource.ALL) {
+    if (source === "All") {
       onFilter(articles);
     } else {
-      const filtered = articles.filter((article) => article.source === source);
+      const filtered = articles.filter(
+        (article) => article.source === source
+      );
       onFilter(filtered);
     }
   };
@@ -33,13 +28,13 @@ const SourceFilterDropdown = ({ articles, onFilter }: SourceFilterDropdownProps)
   return (
     <div className="w-full md:w-48">
       <select
-        className="border"
+        className="border p-2 rounded"
         value={selectedSource}
         onChange={handleSourceChange}
       >
-        {SOURCES.map((source) => (
-          <option key={source} value={source}>
-            {source}
+        {SOURCES.map((s) => (
+          <option key={s} value={s}>
+            {s}
           </option>
         ))}
       </select>
