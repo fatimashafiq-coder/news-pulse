@@ -14,15 +14,14 @@ interface NewsDataResponse {
     image_url?: string;
     source_id: string;
     pubDate: string;
-    creator?: string[];
+    creator?: string;
   }[];
 }
 
 export const fetchNewsDataAPI = async (
   query: string = "world",
-  apiKey: string = API_KEY,
-   country: string = "us",
-    language: string = "en",
+  country: string = "us",
+  language: string = "en",
 ): Promise<Article[]> => {
   if (!API_KEY) {
     throw new Error("NewsData API key missing");
@@ -34,8 +33,8 @@ export const fetchNewsDataAPI = async (
       {
         params: {
           q: query,
-          "apikey": apiKey,
-         " country": country,
+          apiKey: API_KEY,
+          " country": country,
           "language": language,
         },
       }
@@ -55,7 +54,7 @@ export const fetchNewsDataAPI = async (
       source: ArticleSource.NEWS_DATA,
       sourceName: article.source_id,
       publishedAt: article.pubDate,
-      author: article.creator?.[0] || undefined,
+      author: Array.isArray(article.creator) ? article.creator.join(", ") : undefined,
     }));
   } catch (error) {
     console.error("NewsData API Error:", error);

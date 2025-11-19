@@ -10,6 +10,7 @@ import AuthorFilterDropdown from "../../../components/AuthorFilterDropdown";
 const NewsAPIPage = () => {
   const [searchQuery, setSearchQuery] = useState("politician");
   const [filteredArticles, setFilteredArticles] = useState<Article[] | null>(null);
+
   const { mixedArticles, isLoading } = useMixedNews(searchQuery);
 
   const authors = useMemo(() => {
@@ -20,20 +21,29 @@ const NewsAPIPage = () => {
     return Array.from(authorSet).sort();
   }, [mixedArticles]);
 
-   const filterByAuthor = (author: string) => {
-    if (author === "All") {
-      setFilteredArticles(null);
-    } else {
-      setFilteredArticles(mixedArticles.filter((a) => a.author === author));
-    }
+  const filterByAuthor = (author: string) => {
+    if (author === "All") return setFilteredArticles(null);
+    const filtered = mixedArticles.filter((a) => a.author === author);
+    setFilteredArticles(filtered);
   };
 
   const filterBySource = (source: string) => {
-    if (source === "All") {
-      setFilteredArticles(null);
-    } else {
-      setFilteredArticles(mixedArticles.filter((s) => s.source === source));
-    }
+    if (source === "All") return setFilteredArticles(null);
+    const filtered = mixedArticles.filter((a) => a.source === source);
+    setFilteredArticles(filtered);
+  };
+
+  const filterByDate = (startDate: string, endDate: string) => {
+    if (!startDate || !endDate) return setFilteredArticles(null);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const filtered = mixedArticles.filter((a) => {
+      const articleDate = new Date(a.publishedAt);
+      return articleDate >= start && articleDate <= end;
+    });
+    setFilteredArticles(filtered);
   };
 
   const displayArticles = filteredArticles ?? mixedArticles;
@@ -45,24 +55,23 @@ const NewsAPIPage = () => {
           <h1 className="text-4xl font-bold text-black">📰 Mixed News Feed</h1>
           <SearchInput onSearch={setSearchQuery} />
         </div>
-
         <div className="mb-8 flex gap-3 space-y-4">
-          <DateFilterDropdown articles={mixedArticles} onFilter={setFilteredArticles} />
+          <DateFilterDropdown onSelect={filterByDate} />
           <SourceFilterDropdown selectedSource="All" onSelect={filterBySource} />
           <AuthorFilterDropdown authors={authors} onFilter={filterByAuthor} />
         </div>
-
         {isLoading && mixedArticles.length === 0 && (
           <p className="text-center text-gray-600 py-8">Loading...</p>
         )}
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-16">
           {displayArticles.length > 0 ? (
             displayArticles.map((article) => (
               <ArticleCard key={`${article.source}-${article.id}`} article={article} />
             ))
           ) : (
-            <p className="col-span-full text-center text-gray-600 py-12">No articles found</p>
+            <p className="col-span-full text-center text-gray-600 py-12">
+              No articles found
+            </p>
           )}
         </div>
       </div>
