@@ -6,7 +6,7 @@ interface SourceFilterDropdownProps {
   onSelect: (source: string) => void;
 }
 const sources = ["All", ...Object.values(ArticleSource)];
-const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilterDropdownProps) => {
+const SourceFilterDropdown = ({ selectedSource = "null", onSelect }: SourceFilterDropdownProps) => {
   const [currentSource, setCurrentSource] = useState<string>(selectedSource);
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const source = e.target.value;
@@ -21,9 +21,9 @@ const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilter
         value={currentSource}
         onChange={handleChange}
       >
-        {sources.map((s) => (
-          <option key={s} value={s}>
-            {s}
+        {sources.map((source) => (
+          <option key={source} value={source}>
+            {source}
           </option>
         ))}
       </select>

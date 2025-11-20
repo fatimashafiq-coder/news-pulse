@@ -29,7 +29,7 @@ const NewsAPIPage = () => {
 
         <div className="mb-8 flex gap-3 space-y-4">
           <DateFilterDropdown onSelect={filterByDate} />
-          <SourceFilterDropdown selectedSource="All" onSelect={filterBySource} />
+          <SourceFilterDropdown selectedSource="null" onSelect={filterBySource} />
           <AuthorFilterDropdown authors={authors} onFilter={filterByAuthor} />
         </div>
 

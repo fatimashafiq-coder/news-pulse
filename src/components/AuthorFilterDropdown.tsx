@@ -6,7 +6,7 @@ interface AuthorFilterDropdownProps {
 }
 
 const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) => {
-  const [selectedAuthor, setSelectedAuthor] = useState<string>("All");
+  const [selectedAuthor, setSelectedAuthor] = useState<string>("");
   const handleAuthorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const author = e.target.value;
     setSelectedAuthor(author);
