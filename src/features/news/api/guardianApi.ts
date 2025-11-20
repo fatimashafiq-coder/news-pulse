@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ArticleSource } from "../../../types/article";
 
 const API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
-const BASE_URL = "https://content.guardianapis.com";
+const BASE_URL =import.meta.env.VITE_GUARDIAN_API_URL;
 
 interface GuardianArticle {
   webTitle: string;

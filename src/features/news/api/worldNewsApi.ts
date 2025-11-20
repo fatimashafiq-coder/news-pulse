@@ -3,8 +3,8 @@ import { type Article } from "../../../types/article";
 import { v4 as uuidv4 } from "uuid";
 import { ArticleSource } from "../../../types/article";
 
-const API_KEY = "pub_43018a20d2c24c31b78a65bf580d7ef2";
-const BASE_URL = "https://newsdata.io/api/1";
+const API_KEY =  import.meta.env.VITE_WORLDNEWSAPI_KEY;
+const BASE_URL = import.meta.env.VITE_BASEWORLDNEWSAPI_URL;
 
 interface NewsDataResponse {
   results: {

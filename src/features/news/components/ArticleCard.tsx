@@ -8,7 +8,7 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
-        <div className="bg-white  overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div className="bg-white h-[360px]  overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
             <div className="relative w-full h-48 overflow-hidden">
                 <img
                     src={article.imageUrl}

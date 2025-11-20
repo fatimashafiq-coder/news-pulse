@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ArticleSource } from "../../../types/article";
 
 const API_KEY = import.meta.env.VITE_NEWSAPI_KEY;
-const BASE_URL = "https://newsapi.org/v2";
+const BASE_URL= import.meta.env.VITE_BASENEWSAPI_URL;
 
 interface NewsAPIResponse {
   articles: {
@@ -29,7 +29,7 @@ export const fetchNewsAPI = async (
   const { data } = await axios.get<NewsAPIResponse>(`${BASE_URL}/everything`, {
     params: {
       q: query,
-      apiKey :API_KEY,
+      apiKey: API_KEY,
       "language": language,
     },
   });
