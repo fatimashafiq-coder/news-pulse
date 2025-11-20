@@ -24,7 +24,9 @@ const NewsAPIPage = () => {
       <div className="mx-auto">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-bold text-black">📰 Mixed News Feed</h1>
-          <SearchInput onSearch={setSearchQuery} />
+          <SearchInput
+            onSearch={setSearchQuery}
+          />
         </div>
 
         <div className="mb-8 flex gap-3 space-y-4">
