@@ -14,13 +14,6 @@ const SearchInput = ({ onSearch }: Props) => {
       setInputValue("");
     }
   };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   return (
     <div className="flex gap-2">
       <input
@@ -40,7 +33,6 @@ const SearchInput = ({ onSearch }: Props) => {
         placeholder="Search news..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        onKeyPress={handleKeyPress}
       />
       <button
         className="px-4 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-colors duration-200 text-base tracking-wide"
