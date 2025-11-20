@@ -14,7 +14,6 @@ const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) 
   };
 
   return (
-    <>
       <select
         className="border rounded m-2.5 mb-2"
         value={selectedAuthor}
@@ -27,7 +26,6 @@ const AuthorFilterDropdown = ({ authors, onFilter }: AuthorFilterDropdownProps) 
           </option>
         ))}
       </select>
-    </>
   );
 };
 

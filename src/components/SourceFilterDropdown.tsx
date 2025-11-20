@@ -15,7 +15,7 @@ const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilter
   };
 
   return (
-    <div className="w-full md:w-48">
+   
       <select
         className="border p-2 rounded"
         value={currentSource}
@@ -27,7 +27,7 @@ const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilter
           </option>
         ))}
       </select>
-    </div>
+  
   );
 };
 

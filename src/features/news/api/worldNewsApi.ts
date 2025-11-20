@@ -52,7 +52,11 @@ export const fetchNewsDataAPI = async (
       source: ArticleSource.NEWS_DATA,
       sourceName: article.source_id,
       publishedAt: article.pubDate,
-      author: Array.isArray(article.creator) ? article.creator.join(", ") : undefined,
+      author: article.creator
+  ? (Array.isArray(article.creator)
+      ? article.creator.join(", ")
+      : article.creator)
+  : undefined
     }));
   } catch (error) {
     console.error("NewsData API Error:", error);

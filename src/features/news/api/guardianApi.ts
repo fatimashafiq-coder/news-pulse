@@ -39,7 +39,6 @@ export const fetchGuardianNews = async (
       "show-fields": showFields,
     },
   });
-  console.log("guardian api", data);
   return data.response.results.map((article) => ({
     id: uuidv4(),
     title: article.webTitle,

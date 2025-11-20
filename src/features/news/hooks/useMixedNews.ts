@@ -17,7 +17,7 @@ export const useMixedNews = (query: string = "politician") => {
       queryFn: () => fn(query),
       staleTime: 1000 * 60 * 5,
       gcTime: 1000 * 60 * 10,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus:false,
       retry: 2,
     })),
   });
