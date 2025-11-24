@@ -19,41 +19,79 @@ const DateFilterDropdown = ({ onSelect }: DateFilterDropdownProps) => {
   };
 
   return (
-    <div className="flex gap-4 items-center mb-6 flex-wrap">
+    <div className="w-full">
       <Formik
         initialValues={initialValues}
         validationSchema={dateValidationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="flex gap-4 items-center flex-wrap">
-          <div className="flex flex-col">
-            <Field type="date" name="startDate" className="border p-1" />
+        <Form className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center w-full">
+          <div className="flex flex-col w-full sm:w-auto">
+            <Field
+              type="date"
+              name="startDate"
+              className="
+                px-3 py-2
+                border border-gray-300
+                rounded-lg
+                shadow-sm
+                focus:outline-none
+                focus:ring-2 focus:ring-blue-400
+                focus:border-blue-400
+                transition
+                text-gray-700
+                text-sm
+                w-full
+               
+              "
+            />
             <ErrorMessage
               name="startDate"
               component="div"
-              className="text-red-500 text-sm"
+              className="text-red-500 text-xs mt-1"
             />
           </div>
 
-          <p className="font-medium">to</p>
-
-          <div className="flex flex-col">
+          <p className="hidden sm:block font-medium text-gray-600 text-sm">to</p>
+          
+          <div className="flex flex-col w-full sm:w-auto">
             <Field
               type="date"
               name="endDate"
-              className="border p-1"
               max={today}
+              className="
+                px-3 py-2
+                border border-gray-300
+                rounded-lg
+                shadow-sm
+                focus:outline-none
+                focus:ring-2 focus:ring-blue-400
+                focus:border-blue-400
+                transition
+                text-gray-700
+                text-sm
+                w-full
+              "
             />
             <ErrorMessage
               name="endDate"
               component="div"
-              className="text-red-500 text-sm"
+              className="text-red-500 text-xs mt-1"
             />
           </div>
 
           <button
             type="submit"
-            className="border px-3 py-1 bg-blue-500 text-white rounded"
+            className="
+              w-full sm:w-auto
+              px-4 py-2 
+              bg-black text-white 
+              font-semibold rounded-lg 
+              shadow-md hover:bg-gray-800 
+              transition-colors duration-200 
+              text-sm tracking-wide
+              mt-2 sm:mt-0
+            "
           >
             Filter
           </button>

@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
 import { fetchNewsAPI } from "../api/newsApi";
 import { fetchGuardianNews } from "../api/guardianApi";
-import { fetchNewsDataAPI } from "../api/worldNewsApi";           
+import { fetchNewsDataAPI } from "../api/worldNewsApi";
 import { useMemo } from "react";
 
 const sources = [
@@ -11,13 +11,13 @@ const sources = [
 ];
 
 export const useMixedNews = (query: string = "politician") => {
-    const results = useQueries({
+  const results = useQueries({
     queries: sources.map(({ key, fn }) => ({
       queryKey: [key, query],
       queryFn: () => fn(query),
       staleTime: 1000 * 60 * 5,
       gcTime: 1000 * 60 * 10,
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       retry: 2,
     })),
   });

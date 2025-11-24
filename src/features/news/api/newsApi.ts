@@ -18,22 +18,18 @@ interface NewsAPIResponse {
   }[];
 }
 
-export const fetchNewsAPI = async (
-  query: string = "latest",
-  language: string = "en",
-): Promise<Article[]> => {
+export const fetchNewsAPI=async (query: string = "latest", language: string = "en",): Promise<Article[]> => {
   if (!API_KEY) {
     throw new Error("NewsAPI key missing");
   }
 
-  const { data } = await axios.get<NewsAPIResponse>(`${BASE_URL}/everything`, {
+const {data} = await axios.get<NewsAPIResponse>(`${BASE_URL}/everything`, {
     params: {
       q: query,
       apiKey: API_KEY,
       "language": language,
     },
   });
-  console.log("newApi", data);
   return data.articles.map((article) => ({
     id: uuidv4(),
     title: article.title,

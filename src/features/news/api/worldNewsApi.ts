@@ -3,7 +3,7 @@ import { type Article } from "../../../types/article";
 import { v4 as uuidv4 } from "uuid";
 import { ArticleSource } from "../../../types/article";
 
-const API_KEY =  import.meta.env.VITE_WORLDNEWSAPI_KEY;
+const API_KEY = import.meta.env.VITE_WORLDNEWSAPI_KEY;
 const BASE_URL = import.meta.env.VITE_BASEWORLDNEWSAPI_URL;
 
 interface NewsDataResponse {
@@ -14,7 +14,7 @@ interface NewsDataResponse {
     image_url?: string;
     source_id: string;
     pubDate: string;
-    creator?: string;
+    creator?: string[];
   }[];
 }
 
@@ -52,11 +52,7 @@ export const fetchNewsDataAPI = async (
       source: ArticleSource.NEWS_DATA,
       sourceName: article.source_id,
       publishedAt: article.pubDate,
-      author: article.creator
-        ? (Array.isArray(article.creator)
-          ? article.creator.join(", ")
-          : article.creator)
-        : undefined
+      author: article.creator ? article.creator.join(", ") : undefined
     }));
   } catch (error) {
     console.error("NewsData API Error:", error);
