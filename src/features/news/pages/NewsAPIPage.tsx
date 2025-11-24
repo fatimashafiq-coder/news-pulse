@@ -6,6 +6,7 @@ import DateFilterDropdown from "../../../components/DateFilterDropdown";
 import SourceFilterDropdown from "../../../components/SourceFilterDropdown";
 import AuthorFilterDropdown from "../../../components/AuthorFilterDropdown";
 import { useArticleFilters } from "../hooks/useArticleFilters";
+import Pagination from "../../../components/Pagination";
 
 const NewsAPIPage = () => {
   const [searchQuery, setSearchQuery] = useState("politician");
@@ -71,48 +72,12 @@ const NewsAPIPage = () => {
                 </p>
               )}
             </div>
-
             {displayArticles.length > articlesPerPage && (
-              <div className="flex justify-center items-center gap-2 mt-6 mb-8">
-                <button
-                  onClick={() => goToPage(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Prev
-                </button>
-                {Array.from({ length: Math.min(totalPages, 5) }).map((_, idx) => {
-                  let pageNum;
-                  if (totalPages <= 5) {
-                    pageNum = idx + 1;
-                  } else {
-                    const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
-                    pageNum = start + idx;
-                  }
-                  
-                  return (
-                    <button
-                      key={pageNum}
-                      onClick={() => goToPage(pageNum)}
-                      className={`px-4 py-2 rounded border ${
-                        currentPage === pageNum 
-                          ? "bg-blue-500 text-white" 
-                          : "bg-gray-200 hover:bg-gray-300"
-                      } transition-colors`}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                })}
-
-                <button
-                  onClick={() => goToPage(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Next
-                </button>
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                goToPage={goToPage}
+              />
             )}
           </>
         )}
