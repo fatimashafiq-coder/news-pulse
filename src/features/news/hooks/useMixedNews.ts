@@ -32,6 +32,7 @@ export const useMixedNews = (query: string = "politician") => {
     const newsDataArticles = newsDataQuery.data ?? [];
 
     const allArticles = [...newsAPIArticles, ...guardianArticles, ...newsDataArticles];
+   
 
     for (let i = allArticles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

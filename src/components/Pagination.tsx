@@ -1,46 +1,40 @@
-import { useState } from "react";
+import React from "react";
 
 interface PaginationProps {
-  totalPages: number;
   currentPage: number;
-  goToPage: (page: number) => void;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
 
-const Pagination = ({ totalPages, goToPage }: PaginationProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  const onPageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-    goToPage(page);
+  const goToPage = (page: number) => {
+    onPageChange(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const getVisiblePages = () => {
-    const visibleCount = 5;
-    if (totalPages <= visibleCount) return Array.from({ length: totalPages }, (_, i) => i + 1);
-
-    const start = Math.max(1, Math.min(currentPage - 2, totalPages - (visibleCount - 1)));
-    return Array.from({ length: visibleCount }, (_, i) => start + i);
-  };
-
-  const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex gap-2 justify-center mt-4">
+    <div className="flex justify-center items-center gap-2 py-6">
       <button
-        onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => goToPage(currentPage - 1)}
+        className={`px-3 py-1 rounded border ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        }`}
       >
         Prev
       </button>
 
-      {visiblePages.map((page) => (
+      {pages.map((page) => (
         <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`px-3 py-1 border rounded ${
-            currentPage === page ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
+          onClick={() => goToPage(page)}
+          className={`px-3 py-1 rounded border cursor-pointer ${
+            currentPage === page ? "bg-black text-white" : "bg-white"
           }`}
         >
           {page}
@@ -48,9 +42,13 @@ const Pagination = ({ totalPages, goToPage }: PaginationProps) => {
       ))}
 
       <button
-        onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => goToPage(currentPage + 1)}
+        className={`px-3 py-1 rounded border ${
+          currentPage === totalPages
+            ? "opacity-50 cursor-not-allowed"
+            : "cursor-pointer"
+        }`}
       >
         Next
       </button>

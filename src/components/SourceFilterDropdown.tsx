@@ -79,7 +79,6 @@ const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilter
             z-10
             max-h-60
             overflow-y-auto
-            animate-fadeIn
           ">
             {sources.map((source) => (
               <div
@@ -111,6 +110,7 @@ const SourceFilterDropdown = ({ selectedSource = "All", onSelect }: SourceFilter
           <div 
             className="fixed inset-0 z-0" 
             onClick={() => setIsOpen(false)}
+
           />
         )}
       </div>
