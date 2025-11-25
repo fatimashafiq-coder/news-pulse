@@ -32,9 +32,11 @@ const Pagination: React.FC<PaginationProps> = ({
 
       {pages.map((page) => (
         <button
+        key={page}
           onClick={() => goToPage(page)}
-          className={`px-3 py-1 rounded border cursor-pointer ${
-            currentPage === page ? "bg-black text-white" : "bg-white"
+          className={`px-3 py-1 rounded border ${
+            currentPage === page ? "bg-black text-white cursor-pointer" : 
+            "cursor-pointer bg-white"
           }`}
         >
           {page}
