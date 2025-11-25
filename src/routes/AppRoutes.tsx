@@ -5,7 +5,7 @@ import NewsAPIPage from "../features/news/pages/NewsAPIPage";
 export const AppRoutes = () => (
   <BrowserRouter >
     <Routes>
-      <Route path="/" element={<NewsAPIPage />} />
+      <Route path="/news-pulse/" element={<NewsAPIPage />} />
       <Route path="/article/:id" element={<ArticleDetailsPage />} />
     </Routes>
   </BrowserRouter>
