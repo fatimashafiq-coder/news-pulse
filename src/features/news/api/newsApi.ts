@@ -1,0 +1,44 @@
+import axios from "axios";
+import { type Article } from "../../../types/article";
+import { v4 as uuidv4 } from "uuid";
+import { ArticleSource } from "../../../types/article";
+
+const API_KEY = import.meta.env.VITE_NEWSAPI_KEY;
+const BASE_URL= import.meta.env.VITE_BASENEWSAPI_URL;
+
+interface NewsAPIResponse {
+  articles: {
+    title: string;
+    description: string;
+    url: string;
+    urlToImage?: string;
+    source: { name: string };
+    publishedAt: string;
+    author?: string;
+  }[];
+}
+
+export const fetchNewsAPI=async (query: string = "latest", language: string = "en",): Promise<Article[]> => {
+  if (!API_KEY) {
+    throw new Error("NewsAPI key missing");
+  }
+
+const {data} = await axios.get<NewsAPIResponse>(`${BASE_URL}/everything`, {
+    params: {
+      q: query,
+      apiKey: API_KEY,
+      "language": language,
+    },
+  });
+  return data.articles.map((article) => ({
+    id: uuidv4(),
+    title: article.title,
+    description: article.description || "",
+    url: article.url,
+    imageUrl: article.urlToImage,
+    source: ArticleSource.NEWS_API,
+    sourceName: article.source.name,
+    publishedAt: article.publishedAt,
+    author: article.author,
+  }));
+};
